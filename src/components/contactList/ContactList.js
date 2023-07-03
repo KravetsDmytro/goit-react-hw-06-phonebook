@@ -38,8 +38,11 @@ const ContactList =()=> {
         <li>
           <strong></strong>
         </li>
-      )}</ul>;
-    </div>)}
+      )}</ul>
+
+    </div>
+
+    )}
 
 
 
