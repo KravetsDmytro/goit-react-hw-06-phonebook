@@ -2,32 +2,31 @@ import { useState } from 'react';
 import { nanoid } from 'nanoid';
 import PropTypes from 'prop-types';
 import css from './ContactForm.module.css';
+import { useDispatch, useSelector } from 'react-redux';
+import { getContacts, addContact } from 'redux/contactsSlice';
 
 function ContactForm({ onSubmit }) {
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
 
-  const nameInputId = nanoid();
-  const numberInputId = nanoid();
+  const contacts = useSelector(getContacts);
+  const dispatch = useDispatch();
 
-  const handleInputChange = event => {
-    const { name, value } = event.currentTarget;
 
-    switch (name) {
-      case 'name':
-        setName(value);
-        break;
-      case 'number':
-        setNumber(value);
-        break;
-      default:
-        return;
-    }
-  };
+
+  const changeName = e => setName(e.target.value);
+  const changeNumber = e => setNumber(e.target.value);
 
   const handleSubmit = e => {
     e.preventDefault();
-    onSubmit({ name, number });
+    const newContact = {
+      name,
+      number,
+      id: nanoid(),
+    };
+    contacts.find(contact => contact.name.toLowerCase() === name.toLowerCase())
+    ? alert(`${name} is already in contacts`)
+    : dispatch(addContact(newContact));
     reset();
   };
 
@@ -38,30 +37,30 @@ function ContactForm({ onSubmit }) {
 
   return (
     <form className={css.form} onSubmit={handleSubmit}>
-<label className={css.label} htmlFor={nameInputId}>
+<label className={css.label} >
   Name
   <input
     className={css.input}
-    id={nameInputId}
     type="tel"
     name="name"
     pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
     title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
     required
     value={name}
-    onChange={handleInputChange}
+    placeholder="Name"
+    onChange={changeName}
   />
 </label>
-<label className={css.label} htmlFor={numberInputId}>
+<label className={css.label}  >
   Number
   <input
     className={css.input}
-    id={numberInputId}
-    type="number"
+     type="number"
     name="number"
     value={number}
-    onChange={handleInputChange}
+    onChange={changeNumber}
     required
+    placeholder="+0-00-00-00"
   />
 <div className={css.button__wrapper}>
   <button className={css.button} type="submit">
