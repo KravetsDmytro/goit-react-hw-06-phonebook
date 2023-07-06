@@ -75,7 +75,7 @@ const App = () => {
 
   return (
     <div className={css.container}>
-      <div>Книга контактів</div>
+      <h1 className={css.texth1}>Книга контактів</h1>
       <ContactForm  />
       <Filter  />
       <ContactList  />

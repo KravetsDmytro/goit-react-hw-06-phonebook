@@ -11,7 +11,7 @@ const Filter = () => {
 
   return (
     <label className={css.label}>
-Пошук контактів
+<p className='titleText'>Пошук контактів</p>
       <input
         type="text"
         name="filter"
@@ -31,7 +31,7 @@ const Filter = () => {
 
 Filter.propTypes = {
   value: PropTypes.string,
-  onChange: PropTypes.func.isRequired,
+  onChange: PropTypes.func
 };
 
 export default Filter;

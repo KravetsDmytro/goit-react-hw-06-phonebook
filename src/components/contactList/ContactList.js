@@ -35,7 +35,7 @@ const ContactList =()=> {
           );
         })
       ) : (
-        <li>
+        <li className={css.errorLi}>
           <strong></strong>
         </li>
       )}</ul>
